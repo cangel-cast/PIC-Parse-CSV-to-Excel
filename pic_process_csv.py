@@ -49,6 +49,9 @@ def runall(path):
     for file in files:
         df = pd.concat([df, pd.read_csv(file,sep=';')])
 
+    ## Eliminating empty wells if possible by removing rows with Area = 0
+    df = df[df['Area'] > 0]
+    
     df['date'] = pd.to_datetime(df['Snapshot Time Stamp']).apply(lambda x: x.strftime('%Y-%m-%d'))
     df.columns
     all_columns = df.columns
